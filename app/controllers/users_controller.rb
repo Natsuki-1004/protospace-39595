@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:show, :new]
-
+  before_action :set_user, only: [:show]
     def index
       @users = User.all
       
@@ -55,6 +55,10 @@ class UsersController < ApplicationController
 
     def prototype_params
       params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
+    end
+
+    def set_user
+      @user = User.find(params[:id])
     end
 
   
